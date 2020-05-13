@@ -148,6 +148,15 @@ class MY_GUI():
         # 获取搜索输入的子串搜索长度信息
         self.information_from_form.childlength = self.smart_child_length_set_entry.get()
         
+        # 如果没有输入搜索目录，或搜索关键字，则弹出错误，并退出
+        if (not self.information_from_form.searchpath):
+
+            tkinter.messagebox.showwarning('警告','请输入搜索目录')
+            return
+
+        if (not self.information_from_form.keyword):
+            tkinter.messagebox.showwarning('警告','请输入搜索关键字')
+            return 
         # 获取窗口内容，并进行搜索
         instance = Searcher(self)   # 若Config.ini中未进行配置, 则采用默认搜索值
 
