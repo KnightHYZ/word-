@@ -166,35 +166,35 @@ class Searcher(object):
         #         print(e)
         #         pass
 
-        # for filename in files:
-        #     if not isinstance(filename,str):
-        #         continue
-        #     # 如果不是word文件：继续
-        #     if not fnmatch.fnmatch(filename, '*.doc') and not fnmatch.fnmatch(filename, '*.docx'):
-        #         continue
-        #     # 如果是word临时文件：继续
-        #     if fnmatch.fnmatch(filename, '~$*'):
-        #         continue
-        #     self.process_list.append(filename)
-        #     self.Process()      # 执行doc到txt转换过程, 但是由于其调用了微软office api接口, 因此无法用多线程进行加速
+        for filename in files:
+            if not isinstance(filename,str):
+                continue
+            # 如果不是word文件：继续
+            if not fnmatch.fnmatch(filename, '*.doc') and not fnmatch.fnmatch(filename, '*.docx'):
+                continue
+            # 如果是word临时文件：继续
+            if fnmatch.fnmatch(filename, '~$*'):
+                continue
+            self.process_list.append(filename)
+            self.Process()      # 执行doc到txt转换过程, 但是由于其调用了微软office api接口, 因此无法用多线程进行加速
 
 
         # 启用线程池，实现对多数据的并行处理
 
-        length = len(files)
-        n = 20
-        # with ThreadPoolExecutor(max_workers=20) as pool:
-        #     for i in range(length):
-        #         files_list = files[math.floor(i / n * length):math.floor((i + 1) / n * length)]    
+        # length = len(files)
+        # n = 5
+        # # with ThreadPoolExecutor(max_workers=20) as pool:
+        # #     for i in range(length):
+        # #         files_list = files[math.floor(i / n * length):math.floor((i + 1) / n * length)]    
              
-        #         pool.submit(self.thread_process, files_list)
-        files_list_save = []
-        executor = ThreadPoolExecutor(max_workers=20)
-        for i in range(length):
-                files_list = files[math.floor(i / n * length):math.floor((i + 1) / n * length)]    
-                files_list_save.append(files_list)
+        # #         pool.submit(self.thread_process, files_list)
+        # files_list_save = []
+        # executor = ThreadPoolExecutor(max_workers=5)
+        # for i in range(length):
+        #         files_list = files[math.floor(i / n * length):math.floor((i + 1) / n * length)]    
+        #         files_list_save.append(files_list)
 
-        all_task = [executor.submit(self.thread_process, (files_list_one)) for files_list_one in files_list_save]
+        # all_task = [executor.submit(self.thread_process, (files_list_one)) for files_list_one in files_list_save]
 
         
 
@@ -298,6 +298,7 @@ class Searcher(object):
             self.process_list.append(file_name)
         finally:
             wordapp.Quit()
+            pythoncom.CoUninitialize()
         
 
 
