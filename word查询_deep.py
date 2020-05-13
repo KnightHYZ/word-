@@ -210,12 +210,12 @@ class Searcher(object):
             
              
 
-        self.win_cls.log_data_Text.insert(tkinter.END,"[基础解析加载完毕 ...]"+ '\n')
-        self.win_cls.log_data_Text.see(END)
-        self.win_cls.log_data_Text.update()     
+        # self.win_cls.log_data_Text.insert(tkinter.END,"[基础解析加载完毕 ...]"+ '\n')
+        # self.win_cls.log_data_Text.see(END)
+        # self.win_cls.log_data_Text.update()     
 
 
-        wait(all_task)
+        # wait(all_task)
         shutil.rmtree(self.tmp_path)
         self.win_cls.result_data_Text.insert(tkinter.END, '【------------------------------------------------搜索过程结束-------------------------------------------------】' + '\n')
 
